@@ -1,23 +1,27 @@
 package practice;
 
+import java.util.function.Predicate;
 import model.Candidate;
 
-import java.util.function.Predicate;
-
-public class CandidateValidator implements Predicate<Candidate>{
+public class CandidateValidator implements Predicate<Candidate> {
+    private static final int MIN_AGE = 35;
+    private static final String NATIONALITY = "Ukrainian";
+    private static final String SEPARATOR = "-";
+    private static final int MIN_RESIDENCY_PERIOD = 10;
     //write your code here
+
     @Override
     public boolean test(Candidate candidate) {
-        return candidate.getAge() >= 35
+        return candidate.getAge() >= MIN_AGE
                 && candidate.isAllowedToVote()
-                && candidate.getNationality().equals("Ukrainian")
+                && candidate.getNationality().equals(NATIONALITY)
                 && periodInUkraine(candidate);
     }
 
     private boolean periodInUkraine(Candidate candidate) {
         int years;
-        String[] split = candidate.getPeriodsInUkr().split("-");
+        String[] split = candidate.getPeriodsInUkr().split(SEPARATOR);
         years = Integer.parseInt(split[1]) - Integer.parseInt(split[0]);
-        return years >= 10;
+        return years >= MIN_RESIDENCY_PERIOD;
     }
 }
