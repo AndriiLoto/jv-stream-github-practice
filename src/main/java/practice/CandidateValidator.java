@@ -19,9 +19,8 @@ public class CandidateValidator implements Predicate<Candidate> {
     }
 
     private boolean periodInUkraine(Candidate candidate) {
-        int years;
         String[] split = candidate.getPeriodsInUkr().split(SEPARATOR);
-        years = Integer.parseInt(split[1]) - Integer.parseInt(split[0]);
+        int years = Integer.parseInt(split[1]) - Integer.parseInt(split[0]);
         return years >= MIN_RESIDENCY_PERIOD;
     }
 }
